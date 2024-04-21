@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\RadicalMotor\\RadicalMotor.csproj": {}
+    "E:\\development\\web\\RadicalMotor\\RadicalMotor\\RadicalMotor.csproj": {}
   },
   "projects": {
-    "D:\\RadicalMotor\\RadicalMotor.csproj": {
+    "E:\\development\\web\\RadicalMotor\\RadicalMotor\\RadicalMotor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\RadicalMotor\\RadicalMotor.csproj",
+        "projectUniqueName": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\RadicalMotor.csproj",
         "projectName": "RadicalMotor",
-        "projectPath": "D:\\RadicalMotor\\RadicalMotor.csproj",
+        "projectPath": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\RadicalMotor.csproj",
         "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\RadicalMotor\\obj\\",
+        "outputPath": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
