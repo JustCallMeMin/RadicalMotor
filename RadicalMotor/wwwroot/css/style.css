@@ -533,6 +533,7 @@
         margin-right: 10px;
         width: 22px;
         height: 22px;
+        margin-left: -20px;
     }
 
         .user_login input[type="checkbox"] + label {

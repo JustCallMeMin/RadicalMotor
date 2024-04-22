@@ -41,6 +41,14 @@
       "PackagePath": "staticwebassets\\img\\1290-SUPER-DUKE-R-EVO.png"
     },
     {
+      "Id": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\wwwroot\\img\\350-EXCF-SIX-DAYS.png",
+      "PackagePath": "staticwebassets\\img\\350-EXCF-SIX-DAYS.png"
+    },
+    {
+      "Id": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\wwwroot\\img\\690-SMC-R.png",
+      "PackagePath": "staticwebassets\\img\\690-SMC-R.png"
+    },
+    {
       "Id": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\wwwroot\\img\\890-ADVENTURE-R.png",
       "PackagePath": "staticwebassets\\img\\890-ADVENTURE-R.png"
     },
@@ -243,6 +251,10 @@
     {
       "Id": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\wwwroot\\js\\popup.js",
       "PackagePath": "staticwebassets\\js\\popup.js"
+    },
+    {
+      "Id": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\wwwroot\\js\\services.js",
+      "PackagePath": "staticwebassets\\js\\services.js"
     },
     {
       "Id": "E:\\development\\web\\RadicalMotor\\RadicalMotor\\wwwroot\\js\\site.js",

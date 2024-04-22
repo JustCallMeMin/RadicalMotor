@@ -76,6 +76,19 @@
         });
 
         // Handle form submissions
+        function authenticatedApiCall(method, url, data, onSuccess, onError) {
+            $.ajax({
+                type: method,
+                url: url,
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                success: onSuccess,
+                error: onError
+            });
+        }
         $('#loginForm').on('submit', function (e) {
             e.preventDefault();
             var formData = {
@@ -85,18 +98,19 @@
             };
 
             $.ajax({
-                type: 'POST',
                 url: 'https://localhost:44304/api/LoginApi/login',
+                type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function (response) {
                     localStorage.setItem('isLoggedIn', 'true');
                     toggleSignInOutButtons();
-                    redirectToIndex();
+                    alert("Login successful!");
                 },
                 error: function (xhr, status, error) {
+                    // Display error message in UI
                     console.error('Error during login', xhr.responseText);
-                    alert('Login failed: ' + xhr.responseText);
+                    $('#loginErrorMessage').text('Login failed: ' + xhr.responseText).show();
                 }
             });
         });

@@ -48,14 +48,11 @@
                 console.log(vehicles);
                 const container = document.querySelector('.wrap_product');
                 vehicles.forEach(vehicle => {
-                    console.log(vehicle.ImageUrls);
-                    // Check if vehicleType is defined and use it to get typeName
-                    const vehicleTypeName = vehicle.vehicleType ? vehicle.vehicleType.typeName : 'Unknown Type';
+                    const vehicleTypeName = vehicle.vehicleType || 'Unknown Type';
 
                     const vehicleDiv = document.createElement('div');
                     vehicleDiv.className = 'item_product';
 
-                    // Assuming vehicle.imageUrlSmall and vehicle.imageUrlMedium are defined somewhere or need to be replaced
                     vehicleDiv.innerHTML = `
                         <div class="box_img">
                             <img

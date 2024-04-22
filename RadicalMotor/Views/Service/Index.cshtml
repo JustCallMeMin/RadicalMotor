@@ -2,6 +2,7 @@
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/MyLayouts.cshtml";
 }
+<script src="/js/services.js"></script>
 <!-- Page Header Start -->
 <div class="container-fluid page-header mb-5 p-0"
 	 style="background-image: url(img/carousel-bg-2.jpg)">
@@ -261,21 +262,18 @@
 									   style="height: 55px" />
 							</div>
 							<div class="col-12 col-sm-6">
-								<input type="email"
+								<input type="text"
 									   class="form-control border-0"
 									   placeholder="Your Phone Number"
 									   style="height: 55px" />
 							</div>
 							<div class="col-12 col-sm-6">
-								<select class="form-select border-0" style="height: 55px">
+								<select class="form-select border-0" id="service-select" style="height: 55px">
 									<option selected>Select A Service</option>
-									<option value="1">Service 1</option>
-									<option value="2">Service 2</option>
-									<option value="3">Service 3</option>
 								</select>
 							</div>
 							<div class="col-12 col-sm-6">
-								<div class="date" id="date1" data-target-input="nearest">
+								<div class="date" id="date1" data-target-input="nearest" style="position: relative;">
 									<input type="text"
 										   class="form-control border-0 datetimepicker-input"
 										   placeholder="Service Date"
@@ -284,6 +282,7 @@
 										   style="height: 55px" />
 								</div>
 							</div>
+
 							<div class="col-12">
 								<textarea class="form-control border-0"
 										  placeholder="Notes"></textarea>
