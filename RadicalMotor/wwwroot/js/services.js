@@ -74,6 +74,5 @@
             submitAppointmentForm(formData);
         });
     } else {
-        alert('Please log in to book an appointment.');
     }
 });

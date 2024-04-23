@@ -18,11 +18,6 @@ namespace RadicalMotor.Controllers
         }
 		public IActionResult Index()
 		{
-			if (!User.IsInRole("Admin"))
-			{
-				return RedirectToAction("AccessDenied", "Account");
-			}
-
 			return View();
 		}
 

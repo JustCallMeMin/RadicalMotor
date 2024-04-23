@@ -106,7 +106,28 @@
         }
     });
 
-    
+    document.addEventListener("DOMContentLoaded", function () {
+        var links = document.querySelectorAll(".nav-link");
+
+        links.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+
+                links.forEach(function (otherLink) {
+                    otherLink.classList.remove("active");
+                });
+
+                this.classList.add("active");
+            });
+        });
+
+        var currentUrl = window.location.href;
+        links.forEach(function (link) {
+            if (link.href === currentUrl) {
+                link.classList.add("active");
+            }
+        });
+    });
+
 
 })(jQuery);
 

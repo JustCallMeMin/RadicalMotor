@@ -39,7 +39,9 @@
             setCookie('isLoggedIn', 'true', expiresIn);
             setCookie('accountId', response.accountId, expiresIn);
             checkUserPermissions(response.accountId);
+            $(".modal_close").click();
             toggleSignInOutButtons();
+
         } else {
             console.error('Login failed: No accountId found in response');
             // Handle login failure here, e.g., display error message
@@ -52,8 +54,6 @@
         deleteCookie('accountId');
         deleteCookie('userType');
         toggleSignInOutButtons();
-        redirectToIndex();
-        alert("Logout successful!");
     }
 
     // Toggle visibility of the Sign In and Logout buttons based on authentication status
@@ -221,6 +221,7 @@
                 var typeName = response.typeName;
                 setCookie('userType', typeName, expiresIn);
                 if (typeName === 'Admin') {
+                    window.location.href = '/admin'
                 } else if (typeName === 'Member') {
                 } else {
                     console.error('Unknown account type:', typeName);
@@ -230,17 +231,6 @@
                 console.error('Error fetching account type:', xhr.responseText);
             }
         });
-    }
-
-
-    // This function could enable features for admins
-    function enableAdminFeatures() {
-        alert('Admin features have been enabled.');
-    }
-
-    // This function could restrict access for non-admins
-    function restrictAccess() {
-        alert('Access level: Member. Some features may be restricted.');
     }
 
 })(jQuery);
