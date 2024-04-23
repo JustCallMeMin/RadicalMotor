@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using RadicalMotor.DTO;
 using RadicalMotor.Models;
@@ -37,17 +36,13 @@ namespace RadicalMotor.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Create(VehicleDTO model)
+        public async Task<ActionResult> Create(VehicleDTO model, IFormFile imageUrl)
         {
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/Vehicles", model);
 
             if (response.IsSuccessStatusCode)
             {
-                string responseDataString = await response.Content.ReadAsStringAsync();
 
-                List<VehicleTypeDTO> responseData = JsonConvert.DeserializeObject<List<VehicleTypeDTO>>(responseDataString);
-                var vehicleTypes = responseData.ToList();
-                ViewBag.VehicleTypes = new SelectList(vehicleTypes, "VehicleTypeId", "TypeName");
                 return View();
             }
             else
@@ -76,6 +71,15 @@ namespace RadicalMotor.Areas.Admin.Controllers
                 return View();
             }
         }
+        private async Task<string> SaveImage(IFormFile image)
+        {
+            var savePath = Path.Combine("wwwroot/img", image.FileName);
 
+            using (var fileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+            return "/img/" + image.FileName;
+        }
     }
 }
