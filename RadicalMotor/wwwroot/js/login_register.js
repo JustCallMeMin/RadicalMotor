@@ -113,6 +113,7 @@
                     $('#loginErrorMessage').text('Login failed: ' + xhr.responseText).show();
                 }
             });
+
         });
         $("#registrationForm").on("submit", function (e) {
             e.preventDefault();

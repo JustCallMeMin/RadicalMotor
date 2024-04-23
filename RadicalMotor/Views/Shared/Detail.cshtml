@@ -1,0 +1,47 @@
+﻿@model RadicalMotor.DTO.VehicleDTO
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <h4>Vehical Detail</h4>
+    <hr />
+    <div class="col-md-6 mt-4">
+        @foreach (var imageUrl in @Model.ImageUrls)
+        {
+            <img style="max-width: 400px; max-height: 400px; border-radius: 5px" src="@imageUrl" alt="Image">
+        }
+    </div>
+    <div class="col-md-1"></div>
+    <dl class="col-md-3 mt-4">
+
+        <dd class="col-sm-10 mb-3">
+            <strong>Name:</strong> @Html.DisplayFor(model => model.VehicleName)
+        </dd>
+        <dd class="col-sm-10 mb-3">
+            <strong>ChassisNumber:</strong> @Html.DisplayFor(model => model.ChassisNumber)
+        </dd>
+        <dd class="col-sm-10 mb-3">
+            <strong>Category:</strong> @Model.VehicleTypeId
+        </dd>
+        <dd class="col-sm-10 mb-3">
+            <strong>Entry Date:</strong><br />@Html.DisplayFor(model => model.EntryDate)
+        </dd>
+        <dd class="col-sm-10 mb-3">
+            <strong>Version:</strong> @Html.DisplayFor(model => model.Version)
+        </dd>
+        <dd class="col-sm-10 text-danger mb-3">
+            <strong>Price: @string.Format("{0:# ##0}", Model.Price)</strong>
+        </dd>
+        <div class="col-sm-10">
+            <a class="text-decoration-none" asp-action="Index">
+                <button type="button" class="btn btn-primary">Back</button>
+            </a>
+        </div>
+    </dl>
+
+</div>
+
+
+

@@ -7,6 +7,7 @@ namespace RadicalMotor.Models
 	public class Appointment
 	{
 		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public string AppointmentId { get; set; }
 
 		[Required]
@@ -14,15 +15,8 @@ namespace RadicalMotor.Models
 		public string AccountId { get; set; }
 
 		[Required]
-		public DateTime ServiceDate { get; set; }
-
-		[Required]
-		[ForeignKey("Service")]
-		public string ServiceId { get; set; }
-
-		public string Notes { get; set; }
+		public DateTime DateCreated { get; set; }
 
 		public virtual Account Account { get; set; }
-		public virtual Service Service { get; set; }
 	}
 }
