@@ -4,10 +4,11 @@ using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Mvc;
 using RadicalMotor.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RadicalMotor.Controllers
 {
-    public class ProductsController : Controller
+	public class ProductsController : Controller
     {
         private readonly ILogger<ProductsController> _logger;
 
@@ -15,13 +16,17 @@ namespace RadicalMotor.Controllers
         {
             _logger = logger;
         }
+		public IActionResult Index()
+		{
+			if (!User.IsInRole("Admin"))
+			{
+				return RedirectToAction("AccessDenied", "Account");
+			}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+			return View();
+		}
 
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
         }

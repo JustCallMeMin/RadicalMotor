@@ -6,7 +6,7 @@ namespace RadicalMotor.Models
 	public class VehicleType
 	{
 		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public string VehicleTypeId { get; set; } 
 
 		[Required]

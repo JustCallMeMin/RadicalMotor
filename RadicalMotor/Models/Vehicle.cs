@@ -6,7 +6,7 @@ namespace RadicalMotor.Models
 	public class Vehicle
 	{
 		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public string ChassisNumber { get; set; } 
 
 		[Required]
@@ -17,13 +17,12 @@ namespace RadicalMotor.Models
 
 		[MaxLength(100)]
 		public string Version { get; set; }
-		public string Price { get; set; }
 
 		[ForeignKey("VehicleType")]
 		public string VehicleTypeId { get; set; } 
 
 		public VehicleType VehicleType { get; set; }
 
-        public ICollection<VehicleImage> VehicleImages { get; set; }
+        public ICollection<VehicleImages> VehicleImages { get; set; }
     }
 }

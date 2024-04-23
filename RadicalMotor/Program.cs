@@ -16,11 +16,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 	{
 		options.Cookie.HttpOnly = true;
 		options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-		options.Cookie.SameSite = SameSiteMode.Strict;
-		options.LoginPath = "/Home/Index";
-		options.LogoutPath = "/Home/Index";
-		options.AccessDeniedPath = "/Home/Index";
+		options.Cookie.SameSite = SameSiteMode.None;
+		options.Cookie.Path = "/";
+		options.ExpireTimeSpan = TimeSpan.FromDays(30);
+		options.SlidingExpiration = true;
 	});
+
 
 builder.Services.AddAuthorization();
 

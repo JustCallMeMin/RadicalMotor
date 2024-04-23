@@ -1,9 +1,69 @@
 ﻿(function ($) {
     "use strict";
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = ";expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + ";path=/";
+    }
+
+
+    // Function to get a cookie by name
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Function to delete a cookie by name
+    function deleteCookie(name) {
+        document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+
+    // Function to handle successful login with cookies
+    function handleLoginSuccess(response) {
+        var rememberMe = $('#remember').is(':checked');
+        var expiresIn = rememberMe ? 30 : 1;
+
+        // Check if response contains accountId
+        if (response && response.accountId) {
+            setCookie('isLoggedIn', 'true', expiresIn);
+            setCookie('accountId', response.accountId, expiresIn);
+            checkUserPermissions(response.accountId);
+            toggleSignInOutButtons();
+        } else {
+            console.error('Login failed: No accountId found in response');
+            // Handle login failure here, e.g., display error message
+        }
+    }
+
+    // Handle logout
+    function handleLogout() {
+        deleteCookie('isLoggedIn');
+        deleteCookie('accountId');
+        deleteCookie('userType');
+        toggleSignInOutButtons();
+        redirectToIndex();
+        alert("Logout successful!");
+    }
 
     // Toggle visibility of the Sign In and Logout buttons based on authentication status
+    function checkLoginStatus() {
+        var isLoggedIn = getCookie('isLoggedIn') === 'true';
+        return isLoggedIn;
+    }
+    // Toggle visibility of the Sign In and Logout buttons based on authentication status
     function toggleSignInOutButtons() {
-        var isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        var isLoggedIn = checkLoginStatus();
 
         if (isLoggedIn) {
             $("#modal_trigger").attr('style', 'display: none !important');
@@ -75,20 +135,6 @@
             return false;
         });
 
-        // Handle form submissions
-        function authenticatedApiCall(method, url, data, onSuccess, onError) {
-            $.ajax({
-                type: method,
-                url: url,
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                },
-                success: onSuccess,
-                error: onError
-            });
-        }
         $('#loginForm').on('submit', function (e) {
             e.preventDefault();
             var formData = {
@@ -102,13 +148,8 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
-                success: function (response) {
-                    localStorage.setItem('isLoggedIn', 'true');
-                    toggleSignInOutButtons();
-                    alert("Login successful!");
-                },
+                success: handleLoginSuccess,
                 error: function (xhr, status, error) {
-                    // Display error message in UI
                     console.error('Error during login', xhr.responseText);
                     $('#loginErrorMessage').text('Login failed: ' + xhr.responseText).show();
                 }
@@ -140,9 +181,7 @@
         });
         $('#logout_trigger').click(function (e) {
             e.preventDefault();
-            localStorage.removeItem('isLoggedIn');
-            toggleSignInOutButtons();
-            redirectToIndex();
+            handleLogout();
         });
 
         // Password visibility toggle
@@ -158,6 +197,50 @@
         initializeUIComponents();
         setupEventHandlers();
         toggleSignInOutButtons();
+        var accountId = getCookie('accountId');
     });
+
+    function checkUserPermissions(accountId) {
+        if (!accountId) {
+            console.error('No accountId provided');
+            return;
+        }
+
+        $.ajax({
+            url: `https://localhost:44304/api/Accounts/${accountId}/type`,
+            type: 'GET',
+            success: function (response) {
+                if (!response || typeof response !== 'object' || !('typeName' in response)) {
+                    console.error('Invalid response or TypeName missing');
+                    return;
+                }
+
+                // Truy cập và kiểm tra TypeName
+                var rememberMe = $('#remember').is(':checked');
+                var expiresIn = rememberMe ? 30 : 1;
+                var typeName = response.typeName;
+                setCookie('userType', typeName, expiresIn);
+                if (typeName === 'Admin') {
+                } else if (typeName === 'Member') {
+                } else {
+                    console.error('Unknown account type:', typeName);
+                }
+            },
+            error: function (xhr) {
+                console.error('Error fetching account type:', xhr.responseText);
+            }
+        });
+    }
+
+
+    // This function could enable features for admins
+    function enableAdminFeatures() {
+        alert('Admin features have been enabled.');
+    }
+
+    // This function could restrict access for non-admins
+    function restrictAccess() {
+        alert('Access level: Member. Some features may be restricted.');
+    }
 
 })(jQuery);
